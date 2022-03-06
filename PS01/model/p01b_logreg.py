@@ -58,7 +58,7 @@ def main(train_path, eval_path, pred_path):
     model.fit(x_train, y_train)
 
     # Plot data and decision boundary
-    util.plot(x_train, y_train, model.theta, r'C:\Users\WIN10\Desktop\CS229\PS01')
+    util.plot(x_train, y_train, model.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\distribution.png')
 
     # Save predictions
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
@@ -71,4 +71,4 @@ def main(train_path, eval_path, pred_path):
 
 
 if __name__ == '__main__':
-    main('PS01\ds1_train.csv', 'PS01\ds1_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict.txt')
+    main('PS01\data\ds1_train.csv', 'PS01\data\ds1_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\predict.txt')
