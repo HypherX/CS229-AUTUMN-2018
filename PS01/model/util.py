@@ -74,7 +74,7 @@ def plot(x, y, theta, save_path, correction=1.0):
     x2 = -(theta[0] / theta[2] * correction + theta[1] / theta[2] * x1)
     plt.plot(x1, x2, c='red', linewidth=2)
     plt.xlim(x[:, -2].min() - margin1, x[:, -2].max() + margin1)
-    plt.xlim(x[:, -1].min() - margin2, x[:, -1].max() + margin2)
+    plt.ylim(x[:, -1].min() - margin2, x[:, -1].max() + margin2)
 
     # Add labels and save to disk
     plt.xlabel('x1')
