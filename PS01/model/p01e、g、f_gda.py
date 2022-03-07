@@ -53,7 +53,7 @@ class GDA(LinearModel):
         return util.add_intercept(x) @ self.theta >= 0
     
 
-def main(train_path, eval_path, pred_path):
+def main1(train_path, eval_path, pred_path):
     x_train, y_train = util.load_dataset(train_path, add_intercept=False)
     x1_train, y1_train = util.load_dataset(train_path, add_intercept=True)
     
@@ -66,7 +66,7 @@ def main(train_path, eval_path, pred_path):
     model2.fit(x_train, y_train)
 
     # Plot data and decision boundary: Logistic regression and GDA
-    util.plot(x1_train, y1_train, model1.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\train_gda_and_lr.png',
+    util.plot(x1_train, y1_train, model1.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\train_gda_and_lr_dataset1.png',
     model2.theta, legend1='Logistic Regression', legend2='GDA')
 
     # Save predictions
@@ -75,13 +75,46 @@ def main(train_path, eval_path, pred_path):
     y_pred = (y_pred > 0.5) + 0
     accuracy = sum(y_pred == y_eval) / len(y_eval)
     print(accuracy)
+    # accuracy 0.83
 
     # Plot data and decision boundary: Logistic regression and GDA
-    util.plot(x_eval, y_eval, model1.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\valid_gda_and_lr.png',
+    util.plot(x_eval, y_eval, model1.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\valid_gda_and_lr_dataset1.png',
+    model2.theta, legend1='Logistic Regression', legend2='GDA')
+
+    np.savetxt(pred_path, y_pred, fmt='%d')
+
+
+def main2(train_path, eval_path, pred_path):
+    x_train, y_train = util.load_dataset(train_path, add_intercept=False)
+    x1_train, y1_train = util.load_dataset(train_path, add_intercept=True)
+    
+    # Train Logistic regression
+    model1 = LogisticRegression()
+    model1.fit(x1_train, y1_train)
+
+    # Train GDA
+    model2 = GDA()
+    model2.fit(x_train, y_train)
+
+    # Plot data and decision boundary: Logistic regression and GDA
+    util.plot(x1_train, y1_train, model1.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\train_gda_and_lr_dataset2.png',
+    model2.theta, legend1='Logistic Regression', legend2='GDA')
+
+    # Save predictions
+    x_eval, y_eval = util.load_dataset(eval_path, add_intercept=False)
+    y_pred = model2.predict(x_eval)
+    y_pred = (y_pred > 0.5) + 0
+    accuracy = sum(y_pred == y_eval) / len(y_eval)
+    print(accuracy)
+    # accuracy 0.83
+
+    # Plot data and decision boundary: Logistic regression and GDA
+    util.plot(x_eval, y_eval, model1.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\valid_gda_and_lr_dataset2.png',
     model2.theta, legend1='Logistic Regression', legend2='GDA')
 
     np.savetxt(pred_path, y_pred, fmt='%d')
 
 
 if __name__ == '__main__':
-    main('PS01\data\ds1_train.csv', 'PS01\data\ds1_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\predict_gda.txt')
+    main1('PS01\data\ds1_train.csv', 'PS01\data\ds1_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\predict_gda_dataset1.txt')
+    main2('PS01\data\ds2_train.csv', 'PS01\data\ds2_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\predict_gda_dataset2.txt')

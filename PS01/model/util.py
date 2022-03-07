@@ -76,9 +76,10 @@ def plot(x, y, theta1, save_path, theta2=None, legend1=None, legend2=None, corre
     plt.plot(x1, x2, c='red', label=legend1, linewidth=2)
 
     # Plot decision boundary (found by solving for theta^T x = 0): GDA
-    x3 = np.arange(min(x[:, -2]) - margin1, max(x[:, -2]) + margin1, 0.01)
-    x4 = -(theta2[0] / theta2[2] * correction + theta2[1] / theta2[2] * x3)
-    plt.plot(x3, x4, c='black', label=legend2, linewidth=2)
+    if theta2 is not None:
+        x3 = np.arange(min(x[:, -2]) - margin1, max(x[:, -2]) + margin1, 0.01)
+        x4 = -(theta2[0] / theta2[2] * correction + theta2[1] / theta2[2] * x3)
+        plt.plot(x3, x4, c='black', label=legend2, linewidth=2)
 
     # Set axis range
     plt.xlim(x[:, -2].min() - margin1, x[:, -2].max() + margin1)
