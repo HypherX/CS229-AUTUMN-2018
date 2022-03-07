@@ -1,3 +1,4 @@
+from cProfile import label
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -53,9 +54,9 @@ def load_dataset(csv_path, label_col='y', add_intercept=False):
     return inputs, labels
 
 
-def plot(x, y, theta, save_path, correction=1.0):
+def plot(x, y, theta1, save_path, theta2=None, legend1=None, legend2=None, correction=1.0):
     """
-    Plot dataset and fitted logistic regression parameters
+    Plot dataset and fitted GDA and logistic regression parameters 
     :param x: Matrix of training examples, one per row.
     :param y: Vector of labels in {0,1}
     :param theta: Vector of parameters for logistic regression model
@@ -67,12 +68,19 @@ def plot(x, y, theta, save_path, correction=1.0):
     plt.plot(x[y == 1, -2], x[y == 1, -1], 'bx', linewidth=2)
     plt.plot(x[y == 0, -2], x[y == 0, -1], 'go', linewidth=2)
 
-    # Plot decision boundary (found by solving for theta^T x = 0)
+    # Plot decision boundary (found by solving for theta^T x = 0): Logistic regression
     margin1 = (max(x[:, -2]) - min(x[:, -2])) * 0.2
     margin2 = (max(x[:, -1]) - min(x[:, -1])) * 0.2
     x1 = np.arange(min(x[:, -2]) - margin1, max(x[:, -2]) + margin1, 0.01)
-    x2 = -(theta[0] / theta[2] * correction + theta[1] / theta[2] * x1)
-    plt.plot(x1, x2, c='red', linewidth=2)
+    x2 = -(theta1[0] / theta1[2] * correction + theta1[1] / theta1[2] * x1)
+    plt.plot(x1, x2, c='red', label=legend1, linewidth=2)
+
+    # Plot decision boundary (found by solving for theta^T x = 0): GDA
+    x3 = np.arange(min(x[:, -2]) - margin1, max(x[:, -2]) + margin1, 0.01)
+    x4 = -(theta2[0] / theta2[2] * correction + theta2[1] / theta2[2] * x3)
+    plt.plot(x3, x4, c='black', label=legend2, linewidth=2)
+
+    # Set axis range
     plt.xlim(x[:, -2].min() - margin1, x[:, -2].max() + margin1)
     plt.ylim(x[:, -1].min() - margin2, x[:, -1].max() + margin2)
 

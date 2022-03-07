@@ -58,7 +58,7 @@ def main(train_path, eval_path, pred_path):
     model.fit(x_train, y_train)
 
     # Plot data and decision boundary
-    util.plot(x_train, y_train, model.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\distribution.png')
+    util.plot(x_train, y_train, model.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\train_lr.png')
 
     # Save predictions
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
@@ -67,8 +67,12 @@ def main(train_path, eval_path, pred_path):
     accuracy = sum(y_pred == y_eval) / len(y_eval)
     print(accuracy)
     # accuracy 0.9
+
+    # Plot data and decision boundary
+    util.plot(x_eval, y_eval, model.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\valid_lr.png')
+    
     np.savetxt(pred_path, y_pred, fmt='%d')
 
 
 if __name__ == '__main__':
-    main('PS01\data\ds1_train.csv', 'PS01\data\ds1_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\predict.txt')
+    main('PS01\data\ds1_train.csv', 'PS01\data\ds1_valid.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\predict_lr.txt')
