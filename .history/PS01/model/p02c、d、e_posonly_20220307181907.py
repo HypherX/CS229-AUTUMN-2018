@@ -81,7 +81,7 @@ def main_e(train_path, valid_path, test_path, pred_path):
     alpha = np.mean(model_e.predict(x_valid))
     correction = (1 + np.log(2 / alpha - 1) / model_e.theta[0])
 
-    util.plot(x_test, y_test, model_e.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\problem2-(e).png', correction=correction)
+    util.plot(x_test, y_test, model_e.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\problem2-(d).png', correction=correction)
 
     pred_d = model_e.predict(x_test)
     np.savetxt(pred_path, pred_d > 0.5, fmt='%d')

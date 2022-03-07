@@ -57,37 +57,6 @@ def main_d(train_path, valid_path, test_path, pred_path):
     np.savetxt(pred_path, pred_d > 0.5, fmt='%d')
 
 
-def main_e(train_path, valid_path, test_path, pred_path):
-    '''
-    Problem 2: Logistic regression for incomplete, positive-only labels
-    Run under the following conditions:
-    1. on y-labels
-    2. on l-labels
-    3. on l-labels with correction factor alpha
-    Args:
-    train_path: Path to CSV file containing training set
-    valid_path: Path to CSV file containing validation set
-    test_path: Path to CSV file containing test set
-    pred_path: Path to save predictions
-    '''
-    # Problem c
-    x_train, y_train = util.load_dataset(train_path, label_col='y', add_intercept=True)
-    x_test, y_test = util.load_dataset(test_path, label_col='y', add_intercept=True)
-    x_valid, y_valid = util.load_dataset(valid_path, label_col='y', add_intercept=True)
-
-    model_e = LogisticRegression()
-    model_e.fit(x_train, y_train)
-
-    alpha = np.mean(model_e.predict(x_valid))
-    correction = (1 + np.log(2 / alpha - 1) / model_e.theta[0])
-
-    util.plot(x_test, y_test, model_e.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\problem2-(e).png', correction=correction)
-
-    pred_d = model_e.predict(x_test)
-    np.savetxt(pred_path, pred_d > 0.5, fmt='%d')
-
-
 if __name__ == '__main__':
     main_c('PS01\data\ds3_train.csv', 'PS01\data\ds3_valid.csv', 'PS01\data\ds3_test.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\problem2-(c).txt')
     main_d('PS01\data\ds3_train.csv', 'PS01\data\ds3_valid.csv', 'PS01\data\ds3_test.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\problem2-(d).txt')
-    main_e('PS01\data\ds3_train.csv', 'PS01\data\ds3_valid.csv', 'PS01\data\ds3_test.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\problem2-(e).txt')

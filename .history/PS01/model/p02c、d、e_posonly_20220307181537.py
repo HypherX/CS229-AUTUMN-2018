@@ -79,15 +79,14 @@ def main_e(train_path, valid_path, test_path, pred_path):
     model_e.fit(x_train, y_train)
 
     alpha = np.mean(model_e.predict(x_valid))
-    correction = (1 + np.log(2 / alpha - 1) / model_e.theta[0])
+    correction = 
 
-    util.plot(x_test, y_test, model_e.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\problem2-(e).png', correction=correction)
+    util.plot(x_test, y_test, model_d.theta, r'C:\Users\WIN10\Desktop\CS229\PS01\image\problem2-(d).png')
 
-    pred_d = model_e.predict(x_test)
+    pred_d = model_d.predict(x_test)
     np.savetxt(pred_path, pred_d > 0.5, fmt='%d')
 
 
 if __name__ == '__main__':
     main_c('PS01\data\ds3_train.csv', 'PS01\data\ds3_valid.csv', 'PS01\data\ds3_test.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\problem2-(c).txt')
     main_d('PS01\data\ds3_train.csv', 'PS01\data\ds3_valid.csv', 'PS01\data\ds3_test.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\problem2-(d).txt')
-    main_e('PS01\data\ds3_train.csv', 'PS01\data\ds3_valid.csv', 'PS01\data\ds3_test.csv', r'C:\Users\WIN10\Desktop\CS229\PS01\predict\problem2-(e).txt')
